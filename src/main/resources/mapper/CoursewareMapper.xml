@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.CoursewareMapper">
+  <resultMap id="BaseResultMap" type="com.model.Courseware">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="teacher_name" jdbcType="VARCHAR" property="teacherName" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="introduce" jdbcType="VARCHAR" property="introduce" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="score" jdbcType="VARCHAR" property="score" />
+    <result column="ev_time" jdbcType="TIMESTAMP" property="evTime" />
+    <result column="subject" jdbcType="VARCHAR" property="subject" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, teacher_name, number, introduce, address, operator, time, score, ev_time, 
+    subject
+  </sql>
+  <select id="selectByExample" parameterType="com.model.CoursewareExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from courseware
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from courseware
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from courseware
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.CoursewareExample">
+    delete from courseware
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.model.Courseware">
+    insert into courseware (id, name, teacher_name, 
+      number, introduce, address, 
+      operator, time, score, 
+      ev_time, subject)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{teacherName,jdbcType=VARCHAR}, 
+      #{number,jdbcType=INTEGER}, #{introduce,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{operator,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, #{score,jdbcType=VARCHAR}, 
+      #{evTime,jdbcType=TIMESTAMP}, #{subject,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.Courseware">
+    insert into courseware
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="teacherName != null">
+        teacher_name,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="introduce != null">
+        introduce,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="evTime != null">
+        ev_time,
+      </if>
+      <if test="subject != null">
+        subject,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherName != null">
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="introduce != null">
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="evTime != null">
+        #{evTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="subject != null">
+        #{subject,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.CoursewareExample" resultType="java.lang.Long">
+    select count(*) from courseware
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update courseware
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherName != null">
+        teacher_name = #{record.teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.number != null">
+        number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.introduce != null">
+        introduce = #{record.introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operator != null">
+        operator = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null">
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=VARCHAR},
+      </if>
+      <if test="record.evTime != null">
+        ev_time = #{record.evTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.subject != null">
+        subject = #{record.subject,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update courseware
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      teacher_name = #{record.teacherName,jdbcType=VARCHAR},
+      number = #{record.number,jdbcType=INTEGER},
+      introduce = #{record.introduce,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      operator = #{record.operator,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=TIMESTAMP},
+      score = #{record.score,jdbcType=VARCHAR},
+      ev_time = #{record.evTime,jdbcType=TIMESTAMP},
+      subject = #{record.subject,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Courseware">
+    update courseware
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherName != null">
+        teacher_name = #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="introduce != null">
+        introduce = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="evTime != null">
+        ev_time = #{evTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="subject != null">
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Courseware">
+    update courseware
+    set name = #{name,jdbcType=VARCHAR},
+      teacher_name = #{teacherName,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      introduce = #{introduce,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      score = #{score,jdbcType=VARCHAR},
+      ev_time = #{evTime,jdbcType=TIMESTAMP},
+      subject = #{subject,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.StudentCourseMapper">
+  <resultMap id="BaseResultMap" type="com.model.StudentCourse">
+    <id column="student_id" jdbcType="INTEGER" property="studentId" />
+    <id column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="evaluate" jdbcType="VARCHAR" property="evaluate" />
+    <result column="ev_time" jdbcType="TIMESTAMP" property="evTime" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapOK" type="com.vo.StudentCourseVo">
+    <id column="id"  property="studentId" />
+    <id column="course_id" property="courseId"/>
+    <id column="username"  property="username" />
+    <result column="grdate"  property="grdate" />
+    <result column="result"  property="result" />
+    <result column="score"  property="score" />
+    <result column="name"  property="name" />
+  </resultMap>
+
+  <resultMap id="BaseResultMapKO" type="com.vo.ForStudentCourseVo">
+    <id column="name"  property="name" />
+    <id column="test_model" property="testModel"/>
+    <id column="course_id"  property="courseId" />
+    <id column="ev_time"  property="evTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    student_id, course_id, score, result, time, evaluate, ev_time
+  </sql>
+  <select id="selectByExample" parameterType="com.model.StudentCourseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from student_course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.model.StudentCourseKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student_course
+    where student_id = #{studentId,jdbcType=INTEGER}
+      and course_id = #{courseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.model.StudentCourseKey">
+    delete from student_course
+    where student_id = #{studentId,jdbcType=INTEGER}
+      and course_id = #{courseId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.StudentCourseExample">
+    delete from student_course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.model.StudentCourse">
+    insert into student_course (student_id, course_id, score, 
+      result, time, evaluate, 
+      ev_time)
+    values (#{studentId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, 
+      #{result,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, #{evaluate,jdbcType=VARCHAR}, 
+      #{evTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.StudentCourse">
+    insert into student_course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="result != null">
+        result,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="evaluate != null">
+        evaluate,
+      </if>
+      <if test="evTime != null">
+        ev_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="studentId != null">
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="evaluate != null">
+        #{evaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="evTime != null">
+        #{evTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.StudentCourseExample" resultType="java.lang.Long">
+    select count(*) from student_course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update student_course
+    <set>
+      <if test="record.studentId != null">
+        student_id = #{record.studentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseId != null">
+        course_id = #{record.courseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.result != null">
+        result = #{record.result,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null">
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.evaluate != null">
+        evaluate = #{record.evaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.evTime != null">
+        ev_time = #{record.evTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update student_course
+    set student_id = #{record.studentId,jdbcType=INTEGER},
+      course_id = #{record.courseId,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=INTEGER},
+      result = #{record.result,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=TIMESTAMP},
+      evaluate = #{record.evaluate,jdbcType=VARCHAR},
+      ev_time = #{record.evTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.StudentCourse">
+    update student_course
+    <set>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="result != null">
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="evaluate != null">
+        evaluate = #{evaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="evTime != null">
+        ev_time = #{evTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where student_id = #{studentId,jdbcType=INTEGER}
+      and course_id = #{courseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.StudentCourse">
+    update student_course
+    set score = #{score,jdbcType=INTEGER},
+      result = #{result,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      evaluate = #{evaluate,jdbcType=VARCHAR},
+      ev_time = #{evTime,jdbcType=TIMESTAMP}
+    where student_id = #{studentId,jdbcType=INTEGER}
+      and course_id = #{courseId,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="getStudentListByTid" resultMap="BaseResultMapOK">
+    select A.id, A.username, A.grdate,C.course_id,
+    B.score, B.result, BC.name
+    from student as A , student_course as B , teacher_course as C , course as BC
+    <where>
+      A.id = B.student_id and C.course_id = B.course_id and C.course_id = BC.id
+      and C.complete = 0
+      and C.teacher_id = #{teacherId}
+      <!--<if test="#{courseId} != null and #{courseId} != '' ">
+        and C.id = #{courseId}
+      </if>-->
+    </where>
+  </select>
+
+  <select id="getStudentScoreListBySid" resultMap="BaseResultMapKO">
+    select evaluate, ev_time, B.course_id,BC.name, C.username,TC.test_model,B.score ,B.result
+    from student as A , student_course as B , teacher as C , course as BC , teacher_course as TC
+    <where>
+      B.student_id = A.id and B.course_id = BC.id and B.course_id = TC.course_id and TC.teacher_id = C.id
+      and B.student_id = #{studentId}
+    </where>
+  </select>
+
+  <!--用于管理员查看所有的学生的成绩-->
+  <select id="getAllstudentScoureList" resultMap="BaseResultMapKO">
+    select BC.name,TC.test_model,B.score ,B.result,A.username
+    from student as A , student_course as B , teacher as C , course as BC , teacher_course as TC
+    <where>
+      B.student_id = A.id and B.course_id = BC.id and B.course_id = TC.course_id and TC.teacher_id = C.id
+    </where>
+  </select>
+
+  <select id="getStudentScoreListForM" resultMap="BaseResultMapKO">
+    select evaluate, ev_time, B.course_id,BC.name, C.username,TC.test_model,B.score ,B.result
+    from student as A , student_course as B , teacher as C , course as BC , teacher_course as TC
+    <where>
+      B.student_id = A.id and B.course_id = BC.id and B.course_id = TC.course_id and TC.teacher_id = C.id
+    </where>
+  </select>
+</mapper>

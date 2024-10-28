@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+<!-- 	指定要扫描的包@Controller的注解 -->
+    <context:component-scan base-package="com.controller"/>
+	
+<!-- 	配置注解驱动 -->
+    <mvc:annotation-driven />
+    
+<!--     配置视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<property name="prefix" value="/WEB-INF/jsp/"></property><!-- 前缀 -->
+    	<property name="suffix" value=".jsp"></property> <!-- 后缀 -->
+    </bean>
+    
+    
+<!--     配置拦截器 -->
+  	<mvc:interceptors>
+ 		<mvc:interceptor>
+ 			<mvc:mapping  path="/**"/>
+ 			<bean class="com.interceptor.LoginInterceptor"></bean>
+ 		</mvc:interceptor>
+
+ 	</mvc:interceptors>
+<!--	!&#45;&#45;异常解析器，遇到所有的错误，都往错误页面跳转&ndash;&gt;-->
+	  <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+      <!-- <property name="exceptionAttribute" value="exception"/>-->
+      <!--异常解析器解析异常后，会将异常对象存放在request域，属性名称默认为exception -->
+          <property name="exceptionMappings">
+              <props>
+                  <prop key="java.lang.Exception">error</prop>
+              </props>
+          </property>
+      </bean>
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+</beans>

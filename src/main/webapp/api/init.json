@@ -1,0 +1,111 @@
+{
+  "menuInfo": {
+    "currency": {
+      "title": "常规管理",
+      "icon": "fa fa-windows",
+      "child": [
+
+        {
+          "title": "学生管理",
+          "href": "",
+          "icon": "fa fa-child",
+          "target": "_self",
+          "child": [
+            {
+              "title": "学生信息",
+              "href": "../student/studentList.action",
+              "icon": "fa fa-list-alt",
+              "target": "_self"
+            },
+            {
+              "title": "学生成绩及学习情况",
+              "href": "../studentCourse/allStudentCourse.action",
+              "icon": "fa fa-align-left",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "老师管理",
+          "href": "",
+          "icon": "fa fa-child",
+          "target": "_self",
+          "child": [
+            {
+              "title": "老师信息",
+              "href": "../teacher/teacherList.action",
+              "icon": "fa fa-user",
+              "target": "_self"
+            },
+            {
+              "title": "教案评分",
+              "href": "../courseware/coursewareForM.action",
+              "icon": "fa fa-align-left",
+              "target": "_self"
+            },
+            {
+              "title": "教学评分",
+              "href": "../studentCourse/allStudentEv.action",
+              "icon": "fa fa-align-left",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "课程信息",
+          "href": "",
+          "icon": "fa fa-edit",
+
+          "target": "_self",
+          "child": [
+            {
+              "title": "课程制定",
+              "href": "../course/courseList.action",
+              "icon": "fa fa-plus-square",
+              "target": "_self"
+            },
+            {
+              "title": "课程分配",
+              "href": "../teacherCourse/courseManage.action",
+              "icon": "fa fa-sitemap",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+        "title": "系统管理",
+        "href": "",
+        "icon": "fa fa-home",
+        "spread": "true",
+        "target": "_self",
+        "child": [
+          {
+            "title": "用户管理",
+            "href": "userlist.action",
+            "icon": "fa fa-group",
+            "target": "_self"
+          },
+          {
+            "title": "日志管理",
+            "href": "../log/loginLogList.action",
+            "icon": "fa fa-pie-chart",
+            "target": "_self"
+          },
+          {
+            "title": "系统公告",
+            "href": "../news/newsList.action",
+            "icon": "fa fa-comment",
+            "target": "_self"
+          },
+          {
+            "title": "数据源监控",
+            "href": "../druid/index.html",
+            "icon": "fa fa-database",
+            "target": "_self"
+          }
+        ]
+        }
+      ]
+    }
+  }
+}

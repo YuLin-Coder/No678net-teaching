@@ -1,0 +1,28 @@
+{
+  "menuInfo": {
+    "currency": {
+      "title": "常规管理",
+      "icon": "fa fa-address-book",
+      "child": [
+        {
+          "title": "我的课程",
+          "href": "../teacherCourse/studentCourseList.action",
+          "icon": "fa fa-gears",
+          "target": "_self"
+        },
+        {
+          "title": "我的成绩",
+          "href": "../studentCourse/studentScore.action",
+          "icon": "fa fa-home",
+          "target": "_self"
+        },
+        {
+          "title": "我的评教",
+          "href": "../studentCourse/studentCourseEv.action",
+          "icon": "fa fa-home",
+          "target": "_self"
+        }
+      ]
+    }
+  }
+}
